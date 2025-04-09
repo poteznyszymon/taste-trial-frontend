@@ -1,0 +1,52 @@
+.menuContainer {
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.open {
+  opacity: 1;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+}
+
+.menu {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: -30rem;
+  width: 20rem;
+  height: 100vh;
+  background-color: white;
+  transition: left 0.3s ease;
+}
+
+.menuOpen {
+  left: 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  color: var(--neutral-dark);
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background-color: var(--secondary-color-hover);
+  border-radius: 0.5rem;
+}
