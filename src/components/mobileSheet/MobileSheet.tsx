@@ -3,6 +3,7 @@ import styles from "./mobilesheet.module.css";
 import { X } from "lucide-react";
 import Logo from "../logo/Logo";
 import CustomButton from "../customButton/CustomButton";
+import TooltipWraper from "../tooltipWrapper/tooltipWraper";
 
 interface MobileSheetProps {
   isOpen: boolean;
@@ -19,9 +20,16 @@ const MobileSheet = ({ isOpen, onClose }: MobileSheetProps) => {
         onClick={() => onClose(false)}
       ></div>
       <div className={`${styles.menu} ${isOpen ? styles.menuOpen : ""}`}>
-        <button className={styles.closeButton} onClick={() => onClose(false)}>
-          <X />
-        </button>
+        <div className={styles.closeWrapper}>
+          <TooltipWraper tooltip="Close">
+            <button
+              className={styles.closeButton}
+              onClick={() => onClose(false)}
+            >
+              <X />
+            </button>
+          </TooltipWraper>
+        </div>
         <div className={styles.logoContainer}>
           <Logo />
         </div>

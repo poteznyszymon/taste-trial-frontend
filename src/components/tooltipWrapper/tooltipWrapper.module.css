@@ -7,12 +7,7 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-
   position: absolute;
-  top: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-
   background-color: #333;
   color: #fff;
   padding: 0.4rem 0.6rem;
@@ -23,15 +18,72 @@
   pointer-events: none;
 }
 
-.tooltipText::after {
+.tooltipText.bottom {
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltipText.top {
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltipText.right {
+  top: 50%;
+  left: 120%;
+  transform: translateY(-50%);
+}
+
+.tooltipText.left {
+  top: 50%;
+  right: 120%;
+  transform: translateY(-50%);
+}
+
+.tooltipText.bottom::after {
   content: "";
   position: absolute;
-  bottom: 1.7rem;
+  bottom: 1.65rem;
   width: 0.5rem;
   height: 0.5rem;
   left: 50%;
   background-color: #333;
   transform: translateX(-50%) rotate(45deg);
+}
+
+.tooltipText.top::after {
+  content: "";
+  position: absolute;
+  top: 1.65rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  left: 50%;
+  background-color: #333;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.tooltipText.left::after {
+  content: "";
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  top: 50%;
+  right: -0.25rem;
+  background-color: #333;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.tooltipText.right::after {
+  content: "";
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  top: 50%;
+  left: -0.25rem;
+  background-color: #333;
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .tooltipWrapper:hover .tooltipText {

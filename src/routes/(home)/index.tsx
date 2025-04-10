@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import "./home.css";
-import Hero from "../../components/hero/Hero";
+import TooltipWraper from "../../components/tooltipWrapper/tooltipWraper";
+import { User } from "lucide-react";
 
 export const Route = createFileRoute("/(home)/")({
   component: RouteComponent,
@@ -9,7 +10,9 @@ export const Route = createFileRoute("/(home)/")({
 function RouteComponent() {
   return (
     <main>
-      <Hero />
+      <TooltipWraper tooltip="Hello" position="bottom">
+        <User />
+      </TooltipWraper>
     </main>
   );
 }

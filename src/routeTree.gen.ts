@@ -14,6 +14,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as homeIndexImport } from './routes/(home)/index'
 import { Route as restaurantsRestaurantsImport } from './routes/(restaurants)/restaurants'
 import { Route as addrestaurantCreateImport } from './routes/(add restaurant)/create'
+import { Route as authregisterRegisterImport } from './routes/(auth)/(register)/register'
+import { Route as authloginLoginImport } from './routes/(auth)/(login)/login'
 
 // Create/Update Routes
 
@@ -32,6 +34,18 @@ const restaurantsRestaurantsRoute = restaurantsRestaurantsImport.update({
 const addrestaurantCreateRoute = addrestaurantCreateImport.update({
   id: '/(add restaurant)/create',
   path: '/create',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authregisterRegisterRoute = authregisterRegisterImport.update({
+  id: '/(auth)/(register)/register',
+  path: '/register',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authloginLoginRoute = authloginLoginImport.update({
+  id: '/(auth)/(login)/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,6 +74,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof homeIndexImport
       parentRoute: typeof rootRoute
     }
+    '/(auth)/(login)/login': {
+      id: '/(auth)/(login)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authloginLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/(register)/register': {
+      id: '/(auth)/(register)/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof authregisterRegisterImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -69,12 +97,16 @@ export interface FileRoutesByFullPath {
   '/create': typeof addrestaurantCreateRoute
   '/restaurants': typeof restaurantsRestaurantsRoute
   '/': typeof homeIndexRoute
+  '/login': typeof authloginLoginRoute
+  '/register': typeof authregisterRegisterRoute
 }
 
 export interface FileRoutesByTo {
   '/create': typeof addrestaurantCreateRoute
   '/restaurants': typeof restaurantsRestaurantsRoute
   '/': typeof homeIndexRoute
+  '/login': typeof authloginLoginRoute
+  '/register': typeof authregisterRegisterRoute
 }
 
 export interface FileRoutesById {
@@ -82,18 +114,22 @@ export interface FileRoutesById {
   '/(add restaurant)/create': typeof addrestaurantCreateRoute
   '/(restaurants)/restaurants': typeof restaurantsRestaurantsRoute
   '/(home)/': typeof homeIndexRoute
+  '/(auth)/(login)/login': typeof authloginLoginRoute
+  '/(auth)/(register)/register': typeof authregisterRegisterRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/create' | '/restaurants' | '/'
+  fullPaths: '/create' | '/restaurants' | '/' | '/login' | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/create' | '/restaurants' | '/'
+  to: '/create' | '/restaurants' | '/' | '/login' | '/register'
   id:
     | '__root__'
     | '/(add restaurant)/create'
     | '/(restaurants)/restaurants'
     | '/(home)/'
+    | '/(auth)/(login)/login'
+    | '/(auth)/(register)/register'
   fileRoutesById: FileRoutesById
 }
 
@@ -101,12 +137,16 @@ export interface RootRouteChildren {
   addrestaurantCreateRoute: typeof addrestaurantCreateRoute
   restaurantsRestaurantsRoute: typeof restaurantsRestaurantsRoute
   homeIndexRoute: typeof homeIndexRoute
+  authloginLoginRoute: typeof authloginLoginRoute
+  authregisterRegisterRoute: typeof authregisterRegisterRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   addrestaurantCreateRoute: addrestaurantCreateRoute,
   restaurantsRestaurantsRoute: restaurantsRestaurantsRoute,
   homeIndexRoute: homeIndexRoute,
+  authloginLoginRoute: authloginLoginRoute,
+  authregisterRegisterRoute: authregisterRegisterRoute,
 }
 
 export const routeTree = rootRoute
@@ -121,7 +161,9 @@ export const routeTree = rootRoute
       "children": [
         "/(add restaurant)/create",
         "/(restaurants)/restaurants",
-        "/(home)/"
+        "/(home)/",
+        "/(auth)/(login)/login",
+        "/(auth)/(register)/register"
       ]
     },
     "/(add restaurant)/create": {
@@ -132,6 +174,12 @@ export const routeTree = rootRoute
     },
     "/(home)/": {
       "filePath": "(home)/index.tsx"
+    },
+    "/(auth)/(login)/login": {
+      "filePath": "(auth)/(login)/login.tsx"
+    },
+    "/(auth)/(register)/register": {
+      "filePath": "(auth)/(register)/register.tsx"
     }
   }
 }
