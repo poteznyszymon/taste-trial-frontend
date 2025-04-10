@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: solid 1px var(--primary-color-border);
+  border-bottom: solid 1px var(--border);
 }
 
 .navbarInnerContainer {
@@ -39,12 +39,12 @@ ul {
 .navbarLink {
   font-size: var(--text-sm);
   font-weight: 500;
-  color: var(--secondary-color);
+  color: var(--muted-foreground);
   transition: all 0.3s ease-in-out;
 }
 
 .navbarLink.active {
-  color: var(--primary-color-hover);
+  color: var(--primary);
 }
 
 .navbarMenuButton {
@@ -54,12 +54,17 @@ ul {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: var(--neutral-dark);
+  color: var(--muted-foreground);
 }
 
 .navbarMenuButton:hover {
-  background-color: var(--secondary-color-hover);
-  border-radius: 0.5rem;
+  background-color: var(--muted);
+  border-radius: var(--radius);
+}
+
+.navbarMenuButtonWrapper {
+  position: absolute;
+  right: 1rem;
 }
 
 @media (max-width: 1350px) {

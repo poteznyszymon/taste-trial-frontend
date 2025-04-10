@@ -3,6 +3,7 @@ import styles from "./navbar.module.css";
 import Logo from "../logo/Logo";
 import CustomButton from "../customButton/CustomButton";
 import { Menu } from "lucide-react";
+import TooltipWraper from "../tooltipWrapper/tooltipWraper";
 
 interface NavbarProps {
   isOpen: boolean;
@@ -36,16 +37,18 @@ const Navbar = ({ isOpen, onClick }: NavbarProps) => {
           </li>
         </ul>
         <div className={styles.navbarButtons}>
-          <CustomButton variant="secondary">Sign In</CustomButton>
-          <CustomButton>Sign Up</CustomButton>
+          <CustomButton variant="secondary">Login</CustomButton>
+          <CustomButton>Register</CustomButton>
         </div>
+      </div>
+      <TooltipWraper tooltip="Menu" className={styles.navbarMenuButtonWrapper}>
         <button
           className={styles.navbarMenuButton}
           onClick={() => onClick(!isOpen)}
         >
           <Menu />
         </button>
-      </div>
+      </TooltipWraper>
     </nav>
   );
 };

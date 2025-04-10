@@ -1,6 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import styles from "./mobilesheet.module.css";
 import { X } from "lucide-react";
+import Logo from "../logo/Logo";
+import CustomButton from "../customButton/CustomButton";
 
 interface MobileSheetProps {
   isOpen: boolean;
@@ -8,6 +10,8 @@ interface MobileSheetProps {
 }
 
 const MobileSheet = ({ isOpen, onClose }: MobileSheetProps) => {
+  const location = useLocation();
+
   return (
     <>
       <div
@@ -18,21 +22,38 @@ const MobileSheet = ({ isOpen, onClose }: MobileSheetProps) => {
         <button className={styles.closeButton} onClick={() => onClose(false)}>
           <X />
         </button>
+        <div className={styles.logoContainer}>
+          <Logo />
+        </div>
         <ul className={styles.links}>
-          <li className={styles.link}>
+          <li
+            className={`${styles.link} ${location.pathname === "/" ? styles.active : ""}`}
+          >
             <Link to="/" onClick={() => onClose(false)}>
-              home
+              Home
             </Link>
           </li>
-          <li className={styles.link}>
+          <li
+            className={`${styles.link} ${location.pathname === "/restaurants" ? styles.active : ""}`}
+          >
             <Link to="/restaurants" onClick={() => onClose(false)}>
               Restaurants
             </Link>
           </li>
-          <li className={styles.link}>
-            <Link to="/create" onClick={() => onClose(false)}></Link>
+          <li
+            className={`${styles.link} ${location.pathname === "/create" ? styles.active : ""}`}
+          >
+            <Link to="/create" onClick={() => onClose(false)}>
+              Add Restaurant
+            </Link>
           </li>
         </ul>
+        <div className={styles.buttonContainer}>
+          <CustomButton className={styles.button} variant="secondary">
+            Login
+          </CustomButton>
+          <CustomButton className={styles.button}>Register</CustomButton>
+        </div>
       </div>
     </>
   );

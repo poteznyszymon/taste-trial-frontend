@@ -1,0 +1,70 @@
+.btn {
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  position: relative;
+}
+
+.btn.loading > p {
+  visibility: hidden;
+}
+
+.loaderContainer {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderIcon {
+  width: 1.3rem;
+  height: 1.3rem;
+  animation: loading 1s linear infinite;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.btnPrimary {
+  background-color: var(--primary);
+  color: var(--background);
+  font-size: var(--text-sm);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border: solid 1px var(--primary-foreground);
+}
+
+.btnPrimary.loading {
+  opacity: 0.8;
+}
+
+.btnPrimary:hover {
+  opacity: 0.8;
+}
+
+.btnSecondary {
+  background-color: var(--background);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  transition: border 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btnSecondary:hover {
+  background-color: var(--primary-foreground);
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
