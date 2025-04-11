@@ -11,13 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PublicImport } from './routes/_public'
 import { Route as homeIndexImport } from './routes/(home)/index'
 import { Route as restaurantsRestaurantsImport } from './routes/(restaurants)/restaurants'
 import { Route as addrestaurantCreateImport } from './routes/(add restaurant)/create'
-import { Route as authregisterRegisterImport } from './routes/(auth)/(register)/register'
-import { Route as authloginLoginImport } from './routes/(auth)/(login)/login'
+import { Route as authenticationregisterRegisterImport } from './routes/(authentication)/(register)/register'
+import { Route as authenticationloginPublicLoginImport } from './routes/(authentication)/(login)/_public.login'
 
 // Create/Update Routes
+
+const PublicRoute = PublicImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const homeIndexRoute = homeIndexImport.update({
   id: '/(home)/',
@@ -37,22 +43,31 @@ const addrestaurantCreateRoute = addrestaurantCreateImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const authregisterRegisterRoute = authregisterRegisterImport.update({
-  id: '/(auth)/(register)/register',
-  path: '/register',
-  getParentRoute: () => rootRoute,
-} as any)
+const authenticationregisterRegisterRoute =
+  authenticationregisterRegisterImport.update({
+    id: '/(authentication)/(register)/register',
+    path: '/register',
+    getParentRoute: () => rootRoute,
+  } as any)
 
-const authloginLoginRoute = authloginLoginImport.update({
-  id: '/(auth)/(login)/login',
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
+const authenticationloginPublicLoginRoute =
+  authenticationloginPublicLoginImport.update({
+    id: '/(authentication)/(login)/_public/login',
+    path: '/login',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PublicImport
+      parentRoute: typeof rootRoute
+    }
     '/(add restaurant)/create': {
       id: '/(add restaurant)/create'
       path: '/create'
@@ -74,18 +89,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof homeIndexImport
       parentRoute: typeof rootRoute
     }
-    '/(auth)/(login)/login': {
-      id: '/(auth)/(login)/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof authloginLoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/(auth)/(register)/register': {
-      id: '/(auth)/(register)/register'
+    '/(authentication)/(register)/register': {
+      id: '/(authentication)/(register)/register'
       path: '/register'
       fullPath: '/register'
-      preLoaderRoute: typeof authregisterRegisterImport
+      preLoaderRoute: typeof authenticationregisterRegisterImport
+      parentRoute: typeof rootRoute
+    }
+    '/(authentication)/(login)/_public/login': {
+      id: '/(authentication)/(login)/_public/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authenticationloginPublicLoginImport
       parentRoute: typeof rootRoute
     }
   }
@@ -94,59 +109,65 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
+  '': typeof PublicRoute
   '/create': typeof addrestaurantCreateRoute
   '/restaurants': typeof restaurantsRestaurantsRoute
   '/': typeof homeIndexRoute
-  '/login': typeof authloginLoginRoute
-  '/register': typeof authregisterRegisterRoute
+  '/register': typeof authenticationregisterRegisterRoute
+  '/login': typeof authenticationloginPublicLoginRoute
 }
 
 export interface FileRoutesByTo {
+  '': typeof PublicRoute
   '/create': typeof addrestaurantCreateRoute
   '/restaurants': typeof restaurantsRestaurantsRoute
   '/': typeof homeIndexRoute
-  '/login': typeof authloginLoginRoute
-  '/register': typeof authregisterRegisterRoute
+  '/register': typeof authenticationregisterRegisterRoute
+  '/login': typeof authenticationloginPublicLoginRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/_public': typeof PublicRoute
   '/(add restaurant)/create': typeof addrestaurantCreateRoute
   '/(restaurants)/restaurants': typeof restaurantsRestaurantsRoute
   '/(home)/': typeof homeIndexRoute
-  '/(auth)/(login)/login': typeof authloginLoginRoute
-  '/(auth)/(register)/register': typeof authregisterRegisterRoute
+  '/(authentication)/(register)/register': typeof authenticationregisterRegisterRoute
+  '/(authentication)/(login)/_public/login': typeof authenticationloginPublicLoginRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/create' | '/restaurants' | '/' | '/login' | '/register'
+  fullPaths: '' | '/create' | '/restaurants' | '/' | '/register' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/create' | '/restaurants' | '/' | '/login' | '/register'
+  to: '' | '/create' | '/restaurants' | '/' | '/register' | '/login'
   id:
     | '__root__'
+    | '/_public'
     | '/(add restaurant)/create'
     | '/(restaurants)/restaurants'
     | '/(home)/'
-    | '/(auth)/(login)/login'
-    | '/(auth)/(register)/register'
+    | '/(authentication)/(register)/register'
+    | '/(authentication)/(login)/_public/login'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
+  PublicRoute: typeof PublicRoute
   addrestaurantCreateRoute: typeof addrestaurantCreateRoute
   restaurantsRestaurantsRoute: typeof restaurantsRestaurantsRoute
   homeIndexRoute: typeof homeIndexRoute
-  authloginLoginRoute: typeof authloginLoginRoute
-  authregisterRegisterRoute: typeof authregisterRegisterRoute
+  authenticationregisterRegisterRoute: typeof authenticationregisterRegisterRoute
+  authenticationloginPublicLoginRoute: typeof authenticationloginPublicLoginRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  PublicRoute: PublicRoute,
   addrestaurantCreateRoute: addrestaurantCreateRoute,
   restaurantsRestaurantsRoute: restaurantsRestaurantsRoute,
   homeIndexRoute: homeIndexRoute,
-  authloginLoginRoute: authloginLoginRoute,
-  authregisterRegisterRoute: authregisterRegisterRoute,
+  authenticationregisterRegisterRoute: authenticationregisterRegisterRoute,
+  authenticationloginPublicLoginRoute: authenticationloginPublicLoginRoute,
 }
 
 export const routeTree = rootRoute
@@ -159,12 +180,16 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/_public",
         "/(add restaurant)/create",
         "/(restaurants)/restaurants",
         "/(home)/",
-        "/(auth)/(login)/login",
-        "/(auth)/(register)/register"
+        "/(authentication)/(register)/register",
+        "/(authentication)/(login)/_public/login"
       ]
+    },
+    "/_public": {
+      "filePath": "_public.tsx"
     },
     "/(add restaurant)/create": {
       "filePath": "(add restaurant)/create.tsx"
@@ -175,11 +200,11 @@ export const routeTree = rootRoute
     "/(home)/": {
       "filePath": "(home)/index.tsx"
     },
-    "/(auth)/(login)/login": {
-      "filePath": "(auth)/(login)/login.tsx"
+    "/(authentication)/(register)/register": {
+      "filePath": "(authentication)/(register)/register.tsx"
     },
-    "/(auth)/(register)/register": {
-      "filePath": "(auth)/(register)/register.tsx"
+    "/(authentication)/(login)/_public/login": {
+      "filePath": "(authentication)/(login)/_public.login.tsx"
     }
   }
 }

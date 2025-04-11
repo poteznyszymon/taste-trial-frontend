@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import styles from "./register.module.css";
 
-export const Route = createFileRoute("/(auth)/(register)/register")({
+export const Route = createFileRoute("/(authentication)/(register)/register")({
   component: RouteComponent,
 });
 

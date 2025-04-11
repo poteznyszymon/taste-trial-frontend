@@ -3,7 +3,7 @@ import styles from "./mobilesheet.module.css";
 import { X } from "lucide-react";
 import Logo from "../logo/Logo";
 import CustomButton from "../customButton/CustomButton";
-import TooltipWraper from "../tooltipWrapper/tooltipWraper";
+import TooltipWraper from "../tooltipWrapper/TooltipWraper";
 
 interface MobileSheetProps {
   isOpen: boolean;
